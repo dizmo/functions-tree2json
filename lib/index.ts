@@ -1,41 +1,59 @@
-export function json2tree(
-    root: string, item: any, mapper: (key: string, value: any) => any,
-): boolean {
-    if (root.endsWith("/")) {
-        root = root.slice(0, -1);
+export const tree2array = function t2a(
+    path: string | null,
+    value: (path: string | null) => any,
+    nodes: (path: string | null) => string[],
+    sep = "/",
+): {
+    [index: number]: any,
+} {
+    if (path !== null && path.startsWith(sep)) {
+        path = path.slice(1);
     }
-    if (typeof(item) === "object" && item !== null) {
-        for (const key in item) {
-            if (item.hasOwnProperty(key)) {
-                if (!json2tree(`${root}/${key}`, item[key], mapper)) {
-                    return false;
-                }
-            }
-        }
-        return true;
+    if (path !== null && path.endsWith(sep)) {
+        path = path.slice(0, -1);
+    }
+    const my_nodes: string[] = nodes(path);
+    if (my_nodes && my_nodes.length > 0) {
+        const my_array: {[index: number]: any} = [
+            value(path),
+        ];
+        my_nodes.forEach((n, i) => {
+            my_array[i + 1] = [n, t2a(`${path || ""}${sep}${n}`, value, nodes)];
+        });
+        return my_array;
     } else {
-        return mapper(root, item) !== false;
+        return [value(path)];
     }
-}
+};
 
-export function tree2json(
-    root: string, lister: (key: string) => string[], mapper: (key: string) => any,
+export const tree2object = function t2o(
+    path: string | null,
+    value: (path: string | null) => any,
+    nodes: (path: string | null) => string[],
+    sep = "/", value_key = "_",
 ): {
     [key: string]: any,
 } {
-    if (root.endsWith("/")) {
-        root = root.slice(0, -1);
+    if (path !== null && path.startsWith(sep)) {
+        path = path.slice(1);
     }
-    const nodes = lister(root);
-    if (nodes && nodes.forEach) {
-        const tree: {[key: string]: any} = {};
-        nodes.forEach((node: string) => {
-            tree[node] = tree2json(node, lister, mapper);
+    if (path !== null && path.endsWith(sep)) {
+        path = path.slice(0, -1);
+    }
+    const my_value: any = value(path);
+    const my_nodes: string[] = nodes(path);
+    if (my_nodes && my_nodes.length > 0) {
+        const my_object: { [k: string]: any} = {};
+        if (my_value !== undefined) {
+            my_object[value_key] = my_value;
+        }
+        my_nodes.forEach((node) => {
+            my_object[node] = t2o(`${path || ""}${sep}${node}`, value, nodes);
         });
-        return tree;
+        return my_object;
     } else {
-        return mapper(root);
+        return my_value;
     }
-}
+};
 
-export default tree2json;
+export default tree2array;

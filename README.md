@@ -15,8 +15,25 @@ npm install @dizmo/functions-tree2json --save
 let lib = require('@dizmo/functions-tree2json');
 ```
 ### Examples
-```javascript
-...
+```typescript
+import { tree2array } from '@dizmo/functions-tree2json';
+import { tree2object } from '@dizmo/functions-tree2json';
+```
+```typescript
+declare const db: {
+    // db should return value for given path (or root)
+    get: (path: string | null) => any;
+    // db should return nodes for given path (or root)
+    see: (path: string | null) => string[];
+};
+const root_array
+    = tree2array(null, db.get, db.see);
+const node_array
+    = tree2array('path/to/node', db.get, db.see);
+const root_object
+    = tree2object(null, db.get, db.see);
+const node_object
+    = tree2object('path/to/node', db.get, db.see);
 ```
 ## Development
 ### Build
