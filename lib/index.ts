@@ -1,3 +1,16 @@
+/**
+ * For a given path traverses a tree-like structure in-order, and returns an
+ * array containing the sub-tree of the corresponding node.
+ *
+ * The node value is reported as the first element of the array, after which
+ * the subnodes are listed as second and consecutive elements. Further, each
+ * of the values of the subnodes are packed in their own arrays as well.
+ *
+ * @param path path of a node to traverse, where `null` implies root
+ * @param value value function returning value of a node
+ * @param nodes nodes function returning subnodes of a node
+ * @param sep separator string between path elements
+ */
 export const tree2array = function t2a(
     path: string | null,
     value: (path: string | null) => any,
@@ -26,6 +39,18 @@ export const tree2array = function t2a(
     }
 };
 
+/**
+ * For a given path traverses a tree-like structure in-order, and returns an
+ * object containing the sub-tree of the corresponding node. Also, if exists
+ * the node value is reported by default as the "underscore" item within the
+ * object.
+ *
+ * @param path path of a node to traverse, where `null` implies root
+ * @param value value function returning value of a node
+ * @param nodes nodes function returning subnodes of a node
+ * @param sep separator string between path elements
+ * @param value_key value key of value
+ */
 export const tree2object = function t2o(
     path: string | null,
     value: (path: string | null) => any,
