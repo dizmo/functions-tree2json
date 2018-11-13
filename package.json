@@ -32,7 +32,7 @@
   "name": "@dizmo/functions-tree2json",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git@github.com:dizmo/functions-json2tree.git"
   },
   "scripts": {
     "build": "node ./cli/run-build.js",
