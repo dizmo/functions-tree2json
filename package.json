@@ -32,7 +32,7 @@
   "name": "@dizmo/functions-tree2json",
   "repository": {
     "type": "git",
-    "url": "git@github.com:dizmo/functions-json2tree.git"
+    "url": "git@github.com:dizmo/functions-tree2json.git"
   },
   "scripts": {
     "build": "node ./cli/run-build.js",
@@ -41,5 +41,5 @@
     "test": "node ./cli/run-test.js"
   },
   "types": "dist/lib/index.d.ts",
-  "version": "1.1.3"
+  "version": "1.1.4"
 }
