@@ -7,22 +7,24 @@
  * of the values of the subnodes are packed in their own arrays as well.
  *
  * @param path path of a node to traverse, where `null` implies root
- * @param value value function returning value of a node
- * @param nodes nodes function returning subnodes of a node
- * @param sep separator string between path elements
+ * @param value value function returning the value of a node
+ * @param nodes nodes function returning the subnodes of a node
+ * @param separator separator string between path elements
+ *
+ * @returns an array representation of sub-tree
  */
 export const tree2array = function t2a(
     path: string | null,
     value: (path: string | null) => any,
     nodes: (path: string | null) => string[],
-    sep = "/",
+    separator = "/",
 ): {
     [index: number]: any,
 } {
-    if (path !== null && path.startsWith(sep)) {
+    if (path !== null && path.startsWith(separator)) {
         path = path.slice(1);
     }
-    if (path !== null && path.endsWith(sep)) {
+    if (path !== null && path.endsWith(separator)) {
         path = path.slice(0, -1);
     }
     const my_nodes: string[] = nodes(path);
@@ -30,8 +32,11 @@ export const tree2array = function t2a(
         const my_array: {[index: number]: any} = [
             value(path),
         ];
-        my_nodes.forEach((n, i) => {
-            my_array[i + 1] = [n, t2a(`${path || ""}${sep}${n}`, value, nodes)];
+        my_nodes.forEach((node, i) => {
+            my_array[i + 1] = [node, t2a(
+                `${path || ""}${separator}${node}`, value, nodes,
+                separator = separator,
+            )];
         });
         return my_array;
     } else {
@@ -46,23 +51,26 @@ export const tree2array = function t2a(
  * object.
  *
  * @param path path of a node to traverse, where `null` implies root
- * @param value value function returning value of a node
- * @param nodes nodes function returning subnodes of a node
- * @param sep separator string between path elements
- * @param value_key value key of value
+ * @param value value function returning the value of a node
+ * @param nodes nodes function returning the subnodes of a node
+ *
+ * @param separator separator string between path elements
+ * @param value_key default value key for node values
+ *
+ * @returns an array representation of sub-tree
  */
 export const tree2object = function t2o(
     path: string | null,
     value: (path: string | null) => any,
     nodes: (path: string | null) => string[],
-    sep = "/", value_key = "_",
+    separator = "/", value_key = "_",
 ): {
     [key: string]: any,
 } {
-    if (path !== null && path.startsWith(sep)) {
+    if (path !== null && path.startsWith(separator)) {
         path = path.slice(1);
     }
-    if (path !== null && path.endsWith(sep)) {
+    if (path !== null && path.endsWith(separator)) {
         path = path.slice(0, -1);
     }
     const my_value: any = value(path);
@@ -73,7 +81,10 @@ export const tree2object = function t2o(
             my_object[value_key] = my_value;
         }
         my_nodes.forEach((node) => {
-            my_object[node] = t2o(`${path || ""}${sep}${node}`, value, nodes);
+            my_object[node] = t2o(
+                `${path || ""}${separator}${node}`, value, nodes,
+                separator = separator, value_key = value_key,
+            );
         });
         return my_object;
     } else {
