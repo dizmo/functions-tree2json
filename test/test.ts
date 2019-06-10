@@ -13,7 +13,6 @@ describe("tree2array", () => {
         expect(tree2array).to.be.a("function");
     });
 });
-
 describe("tree2object", () => {
     it("should exist", () => {
         expect(tree2object).to.not.be.an("undefined");
@@ -22,7 +21,6 @@ describe("tree2object", () => {
         expect(tree2object).to.be.a("function");
     });
 });
-
 describe("tree2array", () => {
     it("should map 'a' node of tree to an array", () => {
         const a_array = tree2array(
@@ -56,7 +54,6 @@ describe("tree2array", () => {
         ]);
     });
 });
-
 describe("tree2object", () => {
     it("should map 'a' node of tree to a string", () => {
         const a_object = tree2object(
@@ -76,7 +73,7 @@ describe("tree2object", () => {
         const c_object = tree2object(
             "c", TreeMock.value, TreeMock.nodes);
         expect(c_object).to.deep.eq({
-            _: "γ", x: {_: "ξ", y: {_: "υ", z: "ζ"}},
+            _: "γ", x: { _: "ξ", y: { _: "υ", z: "ζ" } },
         });
     });
     it("should map root node of tree to an object", () => {
@@ -84,8 +81,8 @@ describe("tree2object", () => {
             null, TreeMock.value, TreeMock.nodes);
         expect(object).to.deep.eq({
             a: "α",
-            b: {_: "β", i: 0, j: 1, k: 2},
-            c: {_: "γ", x: {_: "ξ", y: {_: "υ", z: "ζ"}}},
+            b: { _: "β", i: 0, j: 1, k: 2 },
+            c: { _: "γ", x: { _: "ξ", y: { _: "υ", z: "ζ" } } },
         });
     });
 });

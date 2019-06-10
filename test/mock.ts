@@ -1,5 +1,5 @@
 export class TreeMock {
-    public static value(path: string | null) {
+    public static value(path: string | null): number | string | undefined {
         switch (path) {
             case null:
                 return undefined;
@@ -46,5 +46,4 @@ export class TreeMock {
         }
     }
 }
-
 export default TreeMock;

@@ -29,13 +29,12 @@ export const tree2array = function t2a(
     }
     const my_nodes: string[] = nodes(path);
     if (my_nodes && my_nodes.length > 0) {
-        const my_array: {[index: number]: any} = [
+        const my_array: { [index: number]: any } = [
             value(path),
         ];
         my_nodes.forEach((node, i) => {
             my_array[i + 1] = [node, t2a(
-                `${path || ""}${separator}${node}`, value, nodes,
-                separator = separator,
+                `${path || ""}${separator}${node}`, value, nodes, separator
             )];
         });
         return my_array;
@@ -43,7 +42,6 @@ export const tree2array = function t2a(
         return [value(path)];
     }
 };
-
 /**
  * For a given path traverses a tree-like structure in-order, and returns an
  * object containing the sub-tree of the corresponding node. Also, if exists
@@ -76,14 +74,14 @@ export const tree2object = function t2o(
     const my_value: any = value(path);
     const my_nodes: string[] = nodes(path);
     if (my_nodes && my_nodes.length > 0) {
-        const my_object: { [k: string]: any} = {};
+        const my_object: { [k: string]: any } = {};
         if (my_value !== undefined) {
             my_object[value_key] = my_value;
         }
         my_nodes.forEach((node) => {
             my_object[node] = t2o(
                 `${path || ""}${separator}${node}`, value, nodes,
-                separator = separator, value_key = value_key,
+                separator, value_key
             );
         });
         return my_object;
@@ -91,5 +89,4 @@ export const tree2object = function t2o(
         return my_value;
     }
 };
-
 export default tree2array;

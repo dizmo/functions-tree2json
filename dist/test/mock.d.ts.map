@@ -1,1 +1,0 @@
-{"version":3,"file":"mock.d.ts","sourceRoot":"","sources":["../../test/mock.ts"],"names":[],"mappings":"AAAA,qBAAa,QAAQ;WACH,KAAK,CAAC,IAAI,EAAE,MAAM,GAAG,IAAI;WA0BzB,KAAK,CAAC,IAAI,EAAE,MAAM,GAAG,IAAI,GAAG,MAAM,EAAE;CAoBrD;AAED,eAAe,QAAQ,CAAC"}
