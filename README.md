@@ -25,14 +25,13 @@ npm install @dizmo/functions-tree2json --save
 ### Require
 
 ```javascript
-let lib = require('@dizmo/functions-tree2json');
+const { tree2array, tree2object } = require('@dizmo/functions-tree2json');
 ```
 
 ### Examples
 
 ```typescript
-import { tree2array } from '@dizmo/functions-tree2json';
-import { tree2object } from '@dizmo/functions-tree2json';
+import { tree2array, tree2object } from '@dizmo/functions-tree2json';
 ```
 
 ```typescript
